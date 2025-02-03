@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<!-- Hero Section -->
+<section class="hero b--image" style="background-image: url('{{ asset('assets/image/cart.jpg') }}'); background-size: cover; background-position: center; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container text-center text-light">
+        <h1 class="display-4 fw-bold" style="font-size: 4rem; opacity: 0.8;">
+            <span id="typewriter" class="d-inline-block"></span>
+        </h1>
+        <p class="lead mb-4 mt-3" style="opacity: 0.8;">Browse our extensive collection of the latest gadgets and tech innovations. Find your perfect match!</p>
+        <a href="{{ path('categories_index') }}" class="btn btn-outline-light btn-lg px-5 py-3">Shop Now</a>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const text = "Welcome to the Future of Electronics";
+        const typewriter = document.getElementById("typewriter");
+        let index = 0;
+        let isDeleting = false;
+
+        function type() {
+            if (!isDeleting && index <= text.length) {
+                // Typing forward
+                typewriter.innerHTML = text.slice(0, index);
+                index++;
+            } else if (isDeleting && index > 0) {
+                // Deleting backward
+                typewriter.innerHTML = text.slice(0, index - 1);
+                index--;
+            }
+
+            // Switch direction
+            if (index === text.length) {
+                isDeleting = true;
+                setTimeout(type, 1000); // Pause before deleting
+            } else if (index === 0) {
+                isDeleting = false;
+                setTimeout(type, 1000); // Pause before typing again
+            } else {
+                setTimeout(type, isDeleting ? 50 : 100); // Typing and deleting speeds
+            }
+        }
+
+        type();
+    });
+</script>
+
+<!-- About Section -->
+<section class="about py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center">
+                <img src="{{ asset('assets/image/about-us.jpg') }}" class="img-fluid rounded shadow-lg" alt="About Us">
+            </div>
+            <div class="col-md-6">
+                {# <h2 class="fw-bold text-dark">About Us</h2> #}
+                <p class="text-muted lead">
+                    At <strong>Future Electronics</strong>, we aim to bring you cutting-edge technology and premium gadgets that simplify your life. Whether it's the latest smartphones, laptops, or smart devices, we curate the best for you.
+                </p>
+                <ul class="list-unstyled mt-4">
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-primary me-2"></i>
+                        <strong>Wide Range:</strong> Discover a variety of products tailored to your needs.
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-primary me-2"></i>
+                        <strong>Trusted Quality:</strong> Only the best brands and reliable gadgets.
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle text-primary me-2"></i>
+                        <strong>Customer Focused:</strong> Excellent service and support at every step.
+                    </li>
+                </ul>
+                <a href="{{ path('categories_index') }}" class="btn btn-dark mt-4 px-4 py-2">Explore Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Categories Section -->
+<section class="categories py-5">
+    <div class="container">
+        <h2 class="text-center text-light mb-5">Nos Catégories</h2>
+        <div class="row g-4">
+            {% for category in categories %}
+                {% if category.parent == null %}
+                    <!-- Parent Category Title -->
+                    <div class="col-12 text-center mt-2 mb-4">
+                        <h2 class="text-white bg-dark bg-opacity-75 p-3 rounded">{{ category.name }}</h2>
+                    </div>
+                {% else %}
+                    <!-- Subcategories as Styled Cards -->
+                    <div class="col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100 bg-dark bg-opacity-50 text-white shadow-lg">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-between">
+                                <h3 class="card-title">{{ category.name }}</h3>
+                                <a href="{{ path('categories_list', {'slug': category.slug}) }}" class="btn btn-outline-light mt-3">Voir les produits</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-products py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured Products</h2>
+        <div class="row g-4">
+            {% for product in products %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ asset('assets/uploads/products/' ~ product.images[0].name) }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text text-muted">{{ product.description|slice(0, 100) ~ '...' }}</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-bold">{{ product.price / 100 }} €</span>
+                                <a href="{{ path('products_details', {'slug': product.slug}) }}" class="btn btn-outline-primary btn-sm">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call-to-Action (CTA) Section -->
+<section class="cta bg-dark text-white text-center py-5">
+    <div class="container">
+        <h3 class="mb-3">Ready to shop the latest in electronics?</h3>
+        <p class="lead mb-4">Don't miss out on our latest deals and offers. Start shopping now!</p>
+        <a href="{{ path('categories_index') }}" class="btn btn-dark btn-lg px-5 py-3">Shop Now</a>
+    </div>
+</section>
+{% endblock %}

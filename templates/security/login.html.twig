@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<section class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg border-0 rounded">
+                <div class="card-body p-4">
+                    {% if error %}
+                        <div class="alert alert-danger mb-3">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="mb-3">
+                            Vous êtes connecté(e) comme {{ app.user.userIdentifier }},
+                            <a href="{{ path('app_logout') }}" class="text-decoration-none">Me déconnecter</a>
+                        </div>
+                    {% endif %}
+
+                    <h1 class="h4 mb-4 text-center">Me connecter</h1>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">Email</label>
+                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">Mot de passe</label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <button class="btn btn-dark w-100 mt-4" type="submit">Se connecter</button>
+                    </form>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="{{ path('app_register') }}" class="btn btn-outline-secondary">M'inscrire</a>
+                        <a href="{{ path('forgotten_password') }}" class="btn btn-outline-secondary">Mot de passe oublié</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

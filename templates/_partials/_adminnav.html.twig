@@ -1,0 +1,33 @@
+<aside class="col-3 p-3" style="background-color: #2c2f36;">
+    <!-- Categories Card -->
+    <article class="card mb-3 shadow-sm" style="background-color: #3a3f47; border: 1px solid #444;">
+        <div class="card-header bg-dark text-white">
+            <strong>Catégories</strong>
+        </div>
+        <div class="card-body">
+            <p><a href="{{ path('admin_categories_index') }}" class="btn btn-link text-white text-decoration-none">Liste des catégories</a></p>
+
+        </div>
+    </article>
+
+    <!-- Products Card -->
+    <article class="card mb-3 shadow-sm" style="background-color: #3a3f47; border: 1px solid #444;">
+        <div class="card-header bg-dark text-white">
+            <strong>Produits</strong>
+        </div>
+        <div class="card-body">
+            <p><a href="{{ path('admin_products_index') }}" class="btn btn-link text-white text-decoration-none">Liste des produits</a></p>
+            <p><a href="{{ path('admin_products_add') }}" class="btn btn-link text-white text-decoration-none">Ajouter un produit</a></p>
+        </div>
+    </article>
+
+    <!-- Users Card -->
+    <article class="card mb-3 shadow-sm" style="background-color: #3a3f47; border: 1px solid #444;">
+        <div class="card-header bg-dark text-white">
+            <strong>Utilisateurs</strong>
+        </div>
+        <div class="card-body">
+            <p><a href="{{ path('admin_users_index') }}" class="btn btn-link text-white text-decoration-none">Liste des utilisateurs</a></p>
+        </div>
+    </article>
+</aside>

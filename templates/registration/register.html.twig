@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<section class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg border-0 rounded">
+                <div class="card-body p-4">
+                    <h1 class="h4 mb-4 text-center">S'inscrire</h1>
+
+                    {{ form_start(registrationForm) }}
+                    
+                    <fieldset class="mb-4">
+                        <legend class="text-muted">Mon identité</legend>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form_row(registrationForm.lastname, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form_row(registrationForm.firstname, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                    </fieldset>
+
+                    <fieldset class="mb-4">
+                        <legend class="text-muted">Mes coordonnées</legend>
+                        {{ form_row(registrationForm.address, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(registrationForm.zipcode, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(registrationForm.city, {'attr': {'class': 'form-control'}}) }}
+                    </fieldset>
+
+                    <fieldset class="mb-4">
+                        {{ form_row(registrationForm.plainPassword, {
+                            label: 'Mot de passe',
+                            'attr': {'class': 'form-control'}
+                        }) }}
+                    </fieldset>
+
+                    <fieldset class="mb-4">
+                        <div class="form-check">
+                            {{ form_row(registrationForm.RGPDConsent, {
+                                'attr': {'class': 'form-check-input'}
+                            }) }}
+                            <label class="form-check-label" for="registrationForm_RGPDConsent">
+                                J'accepte la politique de confidentialité
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-dark btn-lg">M'inscrire</button>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{{ path('app_login') }}" class="btn btn-outline-secondary">Déjà un compte ? Se connecter</a>
+                    </div>
+
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

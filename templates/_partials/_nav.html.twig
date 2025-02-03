@@ -1,0 +1,78 @@
+
+
+
+
+    <div class="main-navbar shadow-sm - sticky-top">
+        <div class="top-navbar">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
+                        {# <h5 class="brand-name">E-Shoping</h5> #}
+						<a class="navbar-brand col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block text-light text-bold " href="{{ path('home') }}"><h5 class="brand-name">E-Shoping</h5></a>
+                    </div>
+                    <div class="col-md-5 my-auto">
+                        <form action="/search" method="get" class="d-flex">
+							<input type="text" name="query" class="form-control me-2" placeholder="Search products..." required>
+							<button class="btn btn-light" type="submit">Search</button>
+						</form>
+                    </div>
+                    <div class="col-md-5 my-auto">
+                        <ul class="nav justify-content-end">
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cart">
+                                    <i class="fa fa-shopping-cart"></i> Panier 
+                                </a>
+                            </li>
+                            
+                            
+								{% if app.user %}
+									{% if is_granted('ROLE_PRODUCT_ADMIN') %}
+										<li class="nav-item">
+											<a class="nav-link" href="{{ path('admin_index') }}">Administration</a>
+										</li>
+									{% endif %}
+									
+									<li class="nav-item">
+										<a class="nav-link" href="{{ path('app_logout') }}">Me déconnecter</a>
+									</li>
+								{% else %}
+									<li class="nav-item">
+										<a class="nav-link" href="{{ path('app_register') }}">M'inscrire</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{{ path('app_login') }}">Me Connecter</a>
+									</li>
+								{% endif %}
+							
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+ 
+       
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categories">Categories</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+ 

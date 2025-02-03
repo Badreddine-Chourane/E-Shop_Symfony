@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Détails de {{ product.name }}{% endblock %}
+
+{% block body %}
+<main class="container py-5">
+    <section class="row">
+        <!-- Product Name -->
+        <div class="col-12 mb-4">
+            <h1 class="display-4 text-uppercase text-light">{{ product.name }}</h1>
+        </div>
+
+        <!-- Product Image Carousel -->
+        <div class="col-md-6 mb-4">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    {% for iteration in 1..product.images|length %}
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration - 1 }}"
+                                {{ (loop.first) ? 'class="active" aria-current="true"' : '' }} aria-label="Slide {{ iteration }}"></button>
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner">
+                    {% for image in product.images %}
+                        <div class="carousel-item {{ (loop.first) ? 'active' : '' }}">
+                            <img src="{{ asset('assets/uploads/products/mini/300x300-') ~ image.name }}" class="d-block w-100 rounded shadow" alt="{{ product.name }}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-primary">Détails du produit</h4>
+                    <p class="card-text mb-3">{{ product.description }}</p>
+                    <p class="card-text"><strong>Catégorie:</strong> {{ product.categories.name }}</p>
+                    <p class="card-text"><strong>Prix:</strong> {{ product.price / 100 }} €</p>
+
+                    <!-- Stock & Add to Cart Button -->
+                    {% if product.stock > 0 %}
+                        <a href="{{ path('cart_add', {id: product.id}) }}" class="btn btn-success btn-lg w-100">Ajouter au panier</a>
+                    {% else %}
+                        <p class="text-danger">Temporairement en rupture de stock</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
